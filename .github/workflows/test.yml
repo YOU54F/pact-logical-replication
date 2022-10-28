@@ -4,6 +4,15 @@ on:
   push:
   workflow_dispatch:
 
+env:
+  PGUSER: postgres
+  PGPASSWORD: postgres
+  PGDATABASE: postgres
+  PGHOST: localhost
+  POSTGRES_REP_USER: reptest
+  POSTGRES_REP_PASSWORD: reptest
+
+
 jobs:
   test:
     timeout-minutes: 10
