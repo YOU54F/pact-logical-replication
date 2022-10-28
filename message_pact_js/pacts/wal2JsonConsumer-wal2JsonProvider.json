@@ -1,0 +1,87 @@
+{
+  "consumer": {
+    "name": "wal2JsonConsumer"
+  },
+  "messages": [
+    {
+      "contents": {
+        "change": [
+          {
+            "columnnames": [
+              "_id",
+              "id",
+              "name",
+              "price",
+              "version",
+              "type"
+            ],
+            "columntypes": [
+              "integer",
+              "text",
+              "text",
+              "numeric",
+              "text",
+              "text"
+            ],
+            "columnvalues": [
+              1,
+              "9",
+              "Gem Visa",
+              99.99,
+              "v1",
+              "CREDIT_CARD"
+            ],
+            "kind": "insert",
+            "schema": "public",
+            "table": "product"
+          }
+        ],
+        "xid": "bar"
+      },
+      "description": "a valid wal2json change event",
+      "matchingRules": {
+        "body": {
+          "$.change": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          },
+          "$.xid": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          }
+        }
+      },
+      "metadata": {
+        "contentType": "application/json"
+      },
+      "providerStates": [
+        {
+          "name": "a wal2json replication slot exists"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "10.1.4"
+    },
+    "pactRust": {
+      "ffi": "0.3.12",
+      "models": "0.4.5"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "wal2JsonProvider"
+  }
+}

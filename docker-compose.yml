@@ -1,0 +1,30 @@
+version: "3.1"
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: pg.Dockerfile
+    restart: always
+    environment:
+      POSTGRES_USER: &PGUSER $PGUSER
+      POSTGRES_PASSWORD: &PGPASSWORD $PGPASSWORD
+      POSTGRES_DB: &PGDATABASE $PGDATABASE
+      PGREPUSER: &PGREPUSER $POSTGRES_REP_USER
+      PGREPPASSWORD: &PGREPPASSWORD $POSTGRES_REP_PASSWORD
+    ports:
+      - 5432:5432
+
+  postgres_alpine:
+    build:
+      context: .
+      dockerfile: pg.alpine.Dockerfile
+    restart: always
+    environment:
+      POSTGRES_USER: *PGUSER
+      POSTGRES_PASSWORD: *PGPASSWORD
+      POSTGRES_DB: *PGDATABASE
+      PGREPUSER: *PGREPUSER
+      PGREPPASSWORD: *PGREPPASSWORD
+    ports:
+      - 5432:5432

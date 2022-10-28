@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Start docker pg
+        run: make docker_pg
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: make install_integration
+      - run: make test_integration
+      - run: make install_pact_js
+      - run: make test_pact_js_consumer
+      - run: make test_pact_js_provider
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+      - run: make install_pact_python
+      - run: make test_pact_python_consumer
+      - name: Stop docker pg
+        if: always()
+        run: docker-compose down
