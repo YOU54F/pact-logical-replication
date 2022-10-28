@@ -8,4 +8,4 @@ python-dateutil==2.8.1
 s3transfer==0.6.0
 six==1.15.0
 urllib3==1.26.12
-ecs-logging==0.6.0
+ecs-logging==2.0.0
