@@ -1,4 +1,4 @@
-FROM postgres:10.18-buster AS postgres_wal2json
+FROM postgres:13.4-buster AS postgres_wal2json
 
 RUN apt-get -y update
 RUN apt-get install -y postgresql-10-wal2json
