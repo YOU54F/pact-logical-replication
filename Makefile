@@ -27,3 +27,6 @@ install_pact_python:
 
 test_pact_python_consumer:
 	cd message_pact_python && pytest pact_test.py
+
+verify_pact_python_consumer:
+	PACT_URL=${PWD}/message_pact_python/pacts/wal2jsonconsumer_python-wal2jsonprovider.json make test_pact_js_provider

@@ -1,6 +1,6 @@
 {
   "consumer": {
-    "name": "wal2JsonConsumer"
+    "name": "wal2JsonConsumer_js"
   },
   "messages": [
     {
@@ -35,21 +35,12 @@
             "schema": "public",
             "table": "product"
           }
-        ],
-        "xid": "bar"
+        ]
       },
       "description": "a valid wal2json change event",
       "matchingRules": {
         "body": {
           "$.change": {
-            "combine": "AND",
-            "matchers": [
-              {
-                "match": "type"
-              }
-            ]
-          },
-          "$.xid": {
             "combine": "AND",
             "matchers": [
               {

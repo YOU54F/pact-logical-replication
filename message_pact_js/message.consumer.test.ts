@@ -6,7 +6,7 @@ const {
 } = require("@pact-foundation/pact");
 
 
-const { like,  eachLike } = MatchersV3;
+const { eachLike } = MatchersV3;
 
 export enum Wal2JsonChangeKind {
   Update = "update",
@@ -43,16 +43,17 @@ export interface Wal2JsonDelete extends Wal2JsonBase, Wal2JsonOldKeys {}
 export type Wal2JsonChange = Wal2JsonUpdate | Wal2JsonInsert | Wal2JsonDelete;
 
 export interface Wal2JsonEvent {
-  xid: number;
+  xid?: number;
   change: Wal2JsonChange[];
 }
 
 
 // 1 wal2Json change event Handler
 const wal2JsonHandler = function (wal2JsonEvent: Wal2JsonEvent) {
-  if (!wal2JsonEvent.xid || !wal2JsonEvent.change) {
+  // if (!wal2JsonEvent.xid || !wal2JsonEvent.change) {
+  if (!wal2JsonEvent.change) {
     console.log(wal2JsonEvent);
-    throw new Error("missing fields");
+    throw new Error("missing change data");
   }
 
   // do some other things to the event...
@@ -66,7 +67,7 @@ const wal2JsonHandler = function (wal2JsonEvent: Wal2JsonEvent) {
 
 // 2 Pact Message Consumer
 const messagePact = new MessageConsumerPact({
-  consumer: "wal2JsonConsumer",
+  consumer: "wal2JsonConsumer_js",
   dir: path.resolve(process.cwd(), "pacts"),
   pactfileWriteMode: "update",
   provider: "wal2JsonProvider"
@@ -80,7 +81,7 @@ describe("receive wal2json event", () => {
         .given("a wal2json replication slot exists")
         .expectsToReceive("a valid wal2json change event")
         .withContent({
-          xid: like("bar"),
+          // xid: like("bar"),
           change: eachLike(
             {
               columnnames: ["_id", "id", "name", "price", "version", "type"],

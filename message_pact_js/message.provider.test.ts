@@ -115,10 +115,10 @@ describe("Message provider tests", () => {
       provider: "wal2JsonProvider",
       providerVersion: "1.0.0",
       pactUrls: [
-        path.resolve(
+        process.env.PACT_URL ?? path.resolve(
           process.cwd(),
           "pacts",
-          "wal2JsonConsumer-wal2JsonProvider.json"
+          "wal2JsonConsumer_js-wal2JsonProvider.json"
         )
       ]
     });
