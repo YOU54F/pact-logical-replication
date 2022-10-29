@@ -110,7 +110,12 @@ describe("Message provider tests", () => {
     // 2 Pact setup
     const p = new MessageProviderPact({
       messageProviders: {
+        //  this is taken from description in the pact file 
         "a valid wal2json change event": () => wal2jsonListener.createRealChange()
+      },
+      stateHandlers: {
+        //  this is taken from providerStates in the pact file 
+        "a wal2json replication slot exists": () => console.log('State Change ignored as there is no state change URL provided for interaction'),
       },
       provider: "wal2JsonProvider",
       providerVersion: "1.0.0",

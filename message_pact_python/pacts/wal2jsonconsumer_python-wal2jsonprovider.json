@@ -1,9 +1,19 @@
 {
   "consumer": {
-    "name": "wal2JsonConsumer_js"
+    "name": "wal2JsonConsumer_python"
+  },
+  "provider": {
+    "name": "wal2JsonProvider"
   },
   "messages": [
     {
+      "description": "a valid wal2json change event",
+      "providerStates": [
+        {
+          "name": "a wal2json replication slot exists",
+          "params": null
+        }
+      ],
       "contents": {
         "change": [
           {
@@ -37,11 +47,16 @@
           }
         ]
       },
-      "description": "a valid wal2json change event",
       "matchingRules": {
         "body": {
           "$.change": {
-            "combine": "AND",
+            "matchers": [
+              {
+                "min": 1
+              }
+            ]
+          },
+          "$.change[*].*": {
             "matchers": [
               {
                 "match": "type"
@@ -49,39 +64,23 @@
             ]
           },
           "$.change[*].kind": {
-            "combine": "AND",
             "matchers": [
               {
                 "match": "regex",
-                "regex": "delete|update|insert"
+                "regex": "^(delete|update|insert)$"
               }
             ]
           }
         }
       },
-      "metadata": {
-        "contentType": "application/json"
-      },
-      "providerStates": [
-        {
-          "name": "a wal2json replication slot exists"
-        }
-      ]
+      "metaData": {
+        "Content-Type": "application/json"
+      }
     }
   ],
   "metadata": {
-    "pact-js": {
-      "version": "10.1.4"
-    },
-    "pactRust": {
-      "ffi": "0.3.12",
-      "models": "0.4.5"
-    },
     "pactSpecification": {
       "version": "3.0.0"
     }
-  },
-  "provider": {
-    "name": "wal2JsonProvider"
   }
 }

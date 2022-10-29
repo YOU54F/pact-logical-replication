@@ -6,7 +6,7 @@ const {
 } = require("@pact-foundation/pact");
 
 
-const { eachLike } = MatchersV3;
+const { eachLike, regex } = MatchersV3;
 
 export enum Wal2JsonChangeKind {
   Update = "update",
@@ -50,6 +50,7 @@ export interface Wal2JsonEvent {
 
 // 1 wal2Json change event Handler
 const wal2JsonHandler = function (wal2JsonEvent: Wal2JsonEvent) {
+  console.log(wal2JsonEvent)
   // if (!wal2JsonEvent.xid || !wal2JsonEvent.change) {
   if (!wal2JsonEvent.change) {
     console.log(wal2JsonEvent);
@@ -94,7 +95,7 @@ describe("receive wal2json event", () => {
                 "text"
               ],
               columnvalues: [1, "9", "Gem Visa", 99.99, "v1", "CREDIT_CARD"],
-              kind: "insert",
+              kind: regex('delete|update|insert', 'insert'),
               schema: "public",
               table: "product"
             }
