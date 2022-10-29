@@ -34,6 +34,9 @@ jobs:
           rm ${filename}
           echo "PATH=${PATH}:${PWD}/pact/bin/" >> $GITHUB_ENV
       - run: pact help
+      - name: Start OSS Pact Broker
+        run: docker-compose up -d 
+        working-directory: broker
       # - name: Start docker pg
       #   run: make docker_pg
       # - uses: actions/setup-node@v3
@@ -69,6 +72,6 @@ jobs:
       #     java-version: '11'
       # - run: make test_pact_java_consumer
       # - run: make test_pact_java_provider
-      # - name: Stop docker pg
-      #   if: always()
-      #   run: docker-compose down
+      - name: Stop docker
+        if: always()
+        run: docker-compose down
