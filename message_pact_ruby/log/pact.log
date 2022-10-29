@@ -4,3 +4,13 @@ I, [2022-10-29T04:52:52.582008 #70004]  INFO -- : Sending POST request to path: 
 D, [2022-10-29T04:52:52.582028 #70004] DEBUG -- : body :{"description":"a customer created message","providerStates":[{"name":"A customer is created","params":{}}],"metadata":null}
 I, [2022-10-29T04:52:52.585859 #70004]  INFO -- : Received response with status: 200, headers: {"Content-Type"=>"application/json"}, see debug logs for body
 D, [2022-10-29T04:52:52.585880 #70004] DEBUG -- : body: {"contents":{"email":"jane@example.com","title":"Miss","first_name":"Jane","surname":"Doe"}}
+I, [2022-10-29T05:15:26.008015 #88005]  INFO -- : Running example 'Verifying a pact between Test Message Consumer and Test Message Producer Given A customer is created a customer created message has matching content'
+I, [2022-10-29T05:15:26.008388 #88005]  INFO -- : Sending POST request to path: "/" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2022-10-29T05:15:26.008437 #88005] DEBUG -- : body :{"description":"a customer created message","providerStates":[{"name":"A customer is created","params":{}}],"metadata":null}
+I, [2022-10-29T05:15:26.012976 #88005]  INFO -- : Received response with status: 200, headers: {"Content-Type"=>"application/json"}, see debug logs for body
+D, [2022-10-29T05:15:26.013024 #88005] DEBUG -- : body: {"contents":{"email":"jane@example.com","title":"Miss","first_name":"Jane","surname":"Doe"}}
+I, [2022-10-29T05:16:02.302468 #88603]  INFO -- : Running example 'Verifying a pact between Test Message Consumer and Test Message Producer Given A customer is created a customer created message has matching content'
+I, [2022-10-29T05:16:02.302999 #88603]  INFO -- : Sending POST request to path: "/" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2022-10-29T05:16:02.303029 #88603] DEBUG -- : body :{"description":"a customer created message","providerStates":[{"name":"A customer is created","params":{}}],"metadata":null}
+I, [2022-10-29T05:16:02.306809 #88603]  INFO -- : Received response with status: 200, headers: {"Content-Type"=>"application/json"}, see debug logs for body
+D, [2022-10-29T05:16:02.306830 #88603] DEBUG -- : body: {"contents":{"email":"jane@example.com","title":"Miss","first_name":"Jane","surname":"Doe"}}

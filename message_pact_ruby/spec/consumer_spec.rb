@@ -13,7 +13,7 @@ describe TestMessageConsumer, pact: true do
   expected_payload = {
     "email": "jane@example.com",
     "first_name": "Jane",
-    "last_name": "Doe"   
+    # "last_name": "Doe"   
   }
 
   # Notice the new pact: :message decorator/metadata 

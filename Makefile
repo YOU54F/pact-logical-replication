@@ -43,5 +43,17 @@ test_pact_ruby_consumer:
 test_pact_ruby_provider:
 	cd message_pact_ruby && bundle exec rake pact:verify
 
-install: install_integration install_pact_js install_pact_python
-test: test_integration test_pact_js_consumer test_pact_js_provider test_pact_python_consumer verify_pact_python_consumer
+test_pact_net_consumer:
+	cd message_pact_net && dotnet test Consumer.Tests
+
+test_pact_net_provider:
+	cd message_pact_net && dotnet test Provider.Tests
+
+test_pact_java_consumer:
+	cd message_pact_java/consumer && ./gradlew clean test -i
+
+test_pact_java_provider:
+	cd message_pact_java/provider && ./gradlew clean test -i
+
+install: install_integration install_pact_js install_pact_python install_pact_ruby
+test: test_integration test_pact_js_consumer test_pact_js_provider test_pact_python_consumer test_pact_python_provider test_pact_ruby_consumer test_pact_ruby_provider test_pact_net_consumer test_pact_net_provider
