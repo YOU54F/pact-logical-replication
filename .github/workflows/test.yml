@@ -64,7 +64,7 @@ jobs:
       - run: make install_pact_ruby
       - run: make test_pact_ruby_consumer
       - run: pact-broker publish pacts --auto-detect-version-properties --consumer-app-version $(git rev-parse HEAD)
-        working-directory: message_pact_ruby/specs
+        working-directory: message_pact_ruby/spec
       - run: make test_pact_ruby_provider
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
