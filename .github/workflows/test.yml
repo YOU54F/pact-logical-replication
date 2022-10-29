@@ -18,42 +18,57 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
-      - name: Start docker pg
-        run: make docker_pg
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      - run: make install_integration
-      - run: make test_integration
-      - run: make install_pact_js
-      - run: make test_pact_js_consumer
-      - run: make test_pact_js_provider
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10' 
-      - run: make install_pact_python
-      - run: make test_pact_python_consumer
-      - run: make test_pact_python_provider
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0.4'
-      - run: make install_pact_ruby
-      - run: make test_pact_ruby_consumer
-      - run: make test_pact_ruby_provider
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.0.x
-      - run: make test_pact_net_consumer
-      - run: make test_pact_net_provider
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu' 
-          java-version: '11'
-      - run: make test_pact_java_consumer
-      - run: make test_pact_java_provider
-      - name: Stop docker pg
-        if: always()
-        run: docker-compose down
+      - name: "Installing Pact CLI Tools"
+        run: |
+          echo "Installing Pact CLI Tools"
+          echo "=> downloading Pact CLI Tools"
+          os='linux-x86_64'
+          tag=$(basename $(curl -fs -o/dev/null -w %{redirect_url} https://github.com/pact-foundation/pact-ruby-standalone/releases/latest))
+          filename="pact-${tag#v}-${os}.tar.gz"
+          standalone_download_path=https://github.com/pact-foundation/pact-ruby-standalone/releases/download/${tag}/${filename}
+          echo "from ${standalone_download_path}"
+          curl -LO ${standalone_download_path}
+          tar xzf ${filename}
+          rm ${filename}
+          echo "PATH=${PATH}:${PWD}/pact/bin/" >> $GITHUB_ENV
+      - run: pact help
+      # - name: Start docker pg
+      #   run: make docker_pg
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '16'
+      # - run: make install_integration
+      # - run: make test_integration
+      # - run: make install_pact_js
+      # - run: make test_pact_js_consumer
+      # - run: make test_pact_js_provider
+      # - uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.10' 
+      # - run: make install_pact_python
+      # - run: make test_pact_python_consumer
+      # - run: make test_pact_python_provider
+      # - uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: '3.0.4'
+      # - run: make install_pact_ruby
+      # - run: make test_pact_ruby_consumer
+      # - run: make test_pact_ruby_provider
+      # - name: Setup .NET
+      #   uses: actions/setup-dotnet@v3
+      #   with:
+      #     dotnet-version: 6.0.x
+      # - run: make test_pact_net_consumer
+      # - run: make test_pact_net_provider
+      # - name: Set up JDK 11
+      #   uses: actions/setup-java@v2
+      #   with:
+      #     distribution: 'zulu' 
+      #     java-version: '11'
+      # - run: make test_pact_java_consumer
+      # - run: make test_pact_java_provider
+      # - name: Stop docker pg
+      #   if: always()
+      #   run: docker-compose down
