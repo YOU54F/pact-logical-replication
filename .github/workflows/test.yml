@@ -37,8 +37,7 @@ jobs:
           echo "PATH=${PATH}:${PWD}/pact/bin/" >> $GITHUB_ENV
       - run: pact help
       - name: Start OSS Pact Broker
-        run: docker-compose up -d 
-        working-directory: broker
+        run: docker-compose up -d pact-broker
       - name: Start docker pg
         run: make docker_pg
       - uses: actions/setup-node@v3

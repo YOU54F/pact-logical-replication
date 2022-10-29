@@ -28,3 +28,18 @@ services:
       PGREPPASSWORD: *PGREPPASSWORD
     ports:
       - 5432:5432
+
+  pact-broker:
+    image: pactfoundation/pact-broker
+    links:
+      - postgres
+    ports:
+      - 8000:9292
+    environment:
+      PACT_BROKER_BASIC_AUTH_USERNAME: pact_workshop
+      PACT_BROKER_BASIC_AUTH_PASSWORD: pact_workshop
+      PACT_BROKER_DATABASE_USERNAME: $PGUSER
+      PACT_BROKER_DATABASE_PASSWORD: $PGPASSWORD
+      PACT_BROKER_DATABASE_HOST: postgres
+      PACT_BROKER_DATABASE_NAME: postgres
+      PACT_BROKER_DATABASE_CONNECT_MAX_RETRIES: "10"
