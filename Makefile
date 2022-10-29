@@ -34,5 +34,14 @@ test_pact_python_provider:
 verify_pact_python_consumer:
 	PACT_URL=${PWD}/message_pact_python/pacts/wal2jsonconsumer_python-wal2jsonprovider.json make test_pact_js_provider
 
+install_pact_ruby:
+	cd message_pact_ruby && bundle install
+
+test_pact_ruby_consumer:
+	cd message_pact_ruby && bundle exec rspec
+
+test_pact_ruby_provider:
+	cd message_pact_ruby && bundle exec rake pact:verify
+
 install: install_integration install_pact_js install_pact_python
 test: test_integration test_pact_js_consumer test_pact_js_provider test_pact_python_consumer verify_pact_python_consumer
