@@ -1,6 +1,9 @@
 docker_pg:
 	docker-compose up -d postgres
 
+docker_broker:
+	docker-compose up -d pact-broker
+
 docker_pg_down:
 	docker-compose down postgres
 
@@ -55,5 +58,14 @@ test_pact_java_consumer:
 test_pact_java_provider:
 	cd message_pact_java/provider && ./gradlew clean test -i
 
-install: install_integration install_pact_js install_pact_python install_pact_ruby
-test: test_integration test_pact_js_consumer test_pact_js_provider test_pact_python_consumer test_pact_python_provider test_pact_ruby_consumer test_pact_ruby_provider test_pact_net_consumer test_pact_net_provider
+install_pact_php:
+	cd message_pact_php && composer install
+
+test_pact_php_consumer:
+	cd message_pact_php && vendor/bin/phpunit -c phpunit.message.consumer.xml
+
+test_pact_php_provider:
+	cd message_pact_php && vendor/bin/phpunit -c phpunit.message.provider.xml
+
+install: install_integration install_pact_js install_pact_python install_pact_ruby install_pact_php
+test: test_integration test_pact_js_consumer test_pact_js_provider test_pact_python_consumer test_pact_python_provider test_pact_ruby_consumer test_pact_ruby_provider test_pact_net_consumer test_pact_net_provider test_pact_java_consumer test_pact_php_consumer test_pact_java_provider test_pact_php_provider
