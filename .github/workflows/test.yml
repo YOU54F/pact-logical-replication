@@ -83,6 +83,11 @@ jobs:
       - run: pact-broker publish pacts --auto-detect-version-properties --consumer-app-version $(git rev-parse HEAD)
         working-directory: message_pact_java/consumer/build
       - run: make test_pact_java_provider
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+      - run: make install_pact_php
       - run: make test_pact_php_consumer
       - run: pact-broker publish pacts --auto-detect-version-properties --consumer-app-version $(git rev-parse HEAD)
         working-directory: message_pact_php
