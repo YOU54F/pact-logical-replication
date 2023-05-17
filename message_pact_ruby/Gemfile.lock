@@ -38,7 +38,7 @@ GEM
       expgen (~> 0.1)
       rainbow (~> 3.1.1)
     parslet (2.0.0)
-    pry (0.14.1)
+    pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
     rack (2.2.4)
@@ -70,6 +70,7 @@ GEM
 PLATFORMS
   arm64-darwin-21
   x86_64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   pact
